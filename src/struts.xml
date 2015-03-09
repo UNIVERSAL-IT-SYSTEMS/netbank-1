@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+		"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+		"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="user" namespace="/user" extends="struts-default">
+		<!-- 使用通配符实现动态方法调用 -->
+		<action name="user_*" class="user" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+			<result name="index" type="redirect" >/login.jsp</result>
+		</action>
+		
+		<action name="changepwd" class="user" method="changepwd">
+			<result name="input">/changepwd.jsp</result>
+			<result name="message">/message.jsp</result>
+		</action>
+	</package>
+	
+	<package name="info" namespace="/info" extends="struts-default">
+		<!-- 使用通配符实现动态方法调用 -->
+		<action name="info_*" class="personinfo" method="{1}">
+			<result name="message">/index.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="input">/modify.jsp</result>
+		</action>
+	</package>
+	
+	<package name="transaction" namespace="/transaction" extends="struts-default">
+		<!-- 使用通配符实现动态方法调用 -->
+		<action name="deposit" class="transaction" method="deposit">
+			<result name="message">/message.jsp</result>
+			<result name="input">/deposit.jsp</result>
+		</action>
+		<action name="withdrawal" class="transaction" method="withdrawal">
+			<result name="message">/message.jsp</result>
+			<result name="input">/withdrawal.jsp</result>
+		</action>
+		<action name="transfer" class="transaction" method="transfer">
+			<result name="message">/message.jsp</result>
+			<result name="input">/transfer.jsp</result>
+		</action>
+		<action name="list" class="transaction" method="list">
+			<result name="success">/transactionlog.jsp</result>
+		</action>
+	</package>
+	
+	<package name="admin" namespace="/admin" extends="struts-default">
+		
+		<action name="login" class="admin" method="login">
+			<result name="success">/manage.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<!-- 使用通配符实现动态方法调用 -->
+		<action name="*" class="admin" method="{1}">
+			<result name="login">/login.jsp</result>
+			<result name="users">/admin/users.jsp</result>
+			<result name="add">/admin/add.jsp</result>
+			<result name="input">/message.jsp</result>
+			<result name="message">/message.jsp</result>
+			<result name="index" type="redirect" >/login.jsp</result>
+			<result name="list" type="redirectAction">
+				<param name="actionName" >listUsers</param>
+				<param name="status.id">${status.id}</param>
+			</result>
+		</action>
+				
+	</package>
+	
+</struts>    
